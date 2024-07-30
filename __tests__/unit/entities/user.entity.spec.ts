@@ -19,27 +19,51 @@ describe("UserEntity unit tests", () => {
     });
 
     describe("Getters", () => {
-        it("Getter of name field", () => {
+        it("Getter of name", () => {
             expect(sut.name).toBeDefined();
             expect(sut.name).toEqual(props.name);
             expect(typeof sut.name).toBe("string");
         });
 
-        it("Getter of email field", () => {
+        it("Getter of email", () => {
             expect(sut.email).toBeDefined();
             expect(sut.email).toEqual(props.email);
             expect(typeof sut.email).toBe("string");
         });
 
-        it("Getter of password field", () => {
+        it("Getter of password", () => {
             expect(sut.password).toBeDefined();
             expect(sut.password).toEqual(props.password);
             expect(typeof sut.password).toBe("string");
         });
 
-        it("Getter of createdAt field", () => {
+        it("Getter of createdAt", () => {
             expect(sut.createdAt).toBeDefined();
             expect(sut.createdAt).toBeInstanceOf(Date);
+        });
+    });
+
+    describe("Setters", () => {
+        it("Setter of name", () => {
+            sut["name"] = "other namee";
+            expect(sut.props.name).toEqual("other namee");
+        });
+
+        it("Setter of password", () => {
+            sut["password"] = "other password";
+            expect(sut.props.password).toEqual("other password");
+        });
+    });
+
+    describe("Methods", () => {
+        it("Update", () => {
+            sut.update("name updated");
+            expect(sut.props.name).toEqual("name updated");
+        });
+
+        it("Password update", () => {
+            sut.updatePassword("other password");
+            expect(sut.props.password).toEqual("other password");
         });
     });
 });
