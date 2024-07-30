@@ -34,4 +34,18 @@ describe("BaseEntity unit tests", () => {
         expect(validateUuid(entity.id)).toBeTruthy();
         expect(entity.id).toEqual(id);
     });
+
+    it("Should return plain object of entity", () => {
+        const props: StubProps = {
+            prop1: "value 1",
+            prop2: faker.number.int(),
+        };
+        const id = "ff9b94f2-1dfa-45a2-b2f0-18b06f34de94";
+        const entity = new StubEntity(props, id);
+
+        expect(entity.toPlain()).toStrictEqual({
+            id,
+            ...props,
+        });
+    });
 });
