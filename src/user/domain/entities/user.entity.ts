@@ -27,4 +27,8 @@ export class UserEntity extends BaseEntity<UserProps> {
     get password() {
         return this.props.password;
     }
+
+    get createdAt() {
+        return this.props.createdAt;
+    }
 }
