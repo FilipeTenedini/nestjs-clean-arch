@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { UserProps } from "../../../src/user/domain/entities/user.entity";
+import { UserProps } from "../../src/user/domain/entities/user.entity";
 
 export function userDataBuilder(props?: Partial<UserProps>): UserProps {
     return {
