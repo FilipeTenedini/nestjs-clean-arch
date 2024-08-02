@@ -12,6 +12,7 @@ describe("ClassValidatorFields unit tests", () => {
 
     it("should validate with errors", () => {
         const spyValidateSync = jest.spyOn(libClassValidator, "validateSync");
+
         spyValidateSync.mockReturnValue([
             { property: "field", constraints: { isNotEmpty: "field should not be empty" } },
         ]);
@@ -22,5 +23,18 @@ describe("ClassValidatorFields unit tests", () => {
         expect(sut.validatedData).toBeNull();
         expect(spyValidateSync).toHaveBeenCalled();
         expect(sut.errors).toStrictEqual({ field: ["field should not be empty"] });
+    });
+
+    it("should validate without errors", () => {
+        const spyValidateSync = jest.spyOn(libClassValidator, "validateSync");
+
+        spyValidateSync.mockReturnValue([]);
+
+        const sut = new StubClassValidatorFields();
+
+        expect(sut.validate({ field: "value" })).toBeTruthy();
+        expect(sut.validatedData).toStrictEqual({ field: "value" });
+        expect(spyValidateSync).toHaveBeenCalled();
+        expect(sut.errors).toBe(null);
     });
 });
