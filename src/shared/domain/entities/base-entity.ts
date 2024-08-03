@@ -1,10 +1,10 @@
 import { v4 as uuid } from "uuid";
 
-export abstract class BaseEntity<Props> {
+export abstract class BaseEntity<T> {
     public readonly _id: string;
-    public readonly props: Props;
+    public readonly props: T;
 
-    constructor(props: Props, id?: string) {
+    constructor(props: T, id?: string) {
         this.props = props;
         this._id = id || uuid();
     }
@@ -13,10 +13,10 @@ export abstract class BaseEntity<Props> {
         return this._id;
     }
 
-    toPlain(): Required<{ id: string } & Props> {
+    toPlain(): Required<{ id: string } & T> {
         return {
             id: this._id,
             ...this.props,
-        } as Required<{ id: string } & Props>;
+        } as Required<{ id: string } & T>;
     }
 }
