@@ -36,5 +36,19 @@ describe("UserEntity integration tests", () => {
                 EntityValidationError,
             );
         });
+        it("Should throw an error when creating user with invalid password", () => {
+            expect(() => new UserEntity({ ...props, password: null })).toThrow(
+                EntityValidationError,
+            );
+            expect(() => new UserEntity({ ...props, password: "" })).toThrow(
+                EntityValidationError,
+            );
+            expect(() => new UserEntity({ ...props, password: "s".repeat(101) })).toThrow(
+                EntityValidationError,
+            );
+            expect(() => new UserEntity({ ...props, password: 256 as any })).toThrow(
+                EntityValidationError,
+            );
+        });
     });
 });
