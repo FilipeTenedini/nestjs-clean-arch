@@ -7,7 +7,7 @@ describe("UserEntity unit tests", () => {
 
     beforeEach(() => {
         props = userDataBuilder();
-
+        UserEntity.validate = jest.fn();
         sut = new UserEntity(props);
     });
 
@@ -16,6 +16,7 @@ describe("UserEntity unit tests", () => {
         expect(sut.props.email).toEqual(props.email);
         expect(sut.props.password).toEqual(props.password);
         expect(sut.props.createdAt).toBeInstanceOf(Date);
+        expect(UserEntity.validate).toHaveBeenCalled();
     });
 
     describe("Getters", () => {
@@ -59,11 +60,13 @@ describe("UserEntity unit tests", () => {
         it("Update", () => {
             sut.update("name updated");
             expect(sut.props.name).toEqual("name updated");
+            expect(UserEntity.validate).toHaveBeenCalled();
         });
 
         it("Password update", () => {
             sut.updatePassword("other password");
             expect(sut.props.password).toEqual("other password");
+            expect(UserEntity.validate).toHaveBeenCalled();
         });
     });
 });
