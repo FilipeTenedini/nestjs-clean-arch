@@ -58,5 +58,10 @@ describe("UserEntity integration tests", () => {
                 EntityValidationError,
             );
         });
+        it("Should create a valid user", () => {
+            const user = new UserEntity(props);
+            expect(user).toBeInstanceOf(UserEntity);
+            expect(user.props).toStrictEqual(props);
+        });
     });
 });
