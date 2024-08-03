@@ -64,4 +64,48 @@ describe("UserEntity integration tests", () => {
             expect(user.props).toStrictEqual(props);
         });
     });
+
+    describe("update method", () => {
+        let props: UserProps;
+        beforeEach(() => {
+            props = userDataBuilder({});
+        });
+        it("Should throw an error when updating an user with invalid name", () => {
+            const entity = new UserEntity(props);
+
+            expect(() => entity.update(null)).toThrow(EntityValidationError);
+            expect(() => entity.update(1 as any)).toThrow(EntityValidationError);
+            expect(() => entity.update("s".repeat(256))).toThrow(EntityValidationError);
+            expect(() => entity.update("")).toThrow(EntityValidationError);
+        });
+        it("Should success change user entity name with update function", () => {
+            const entity = new UserEntity(props);
+            const newName = "other name";
+            entity.update(newName);
+            expect(entity.name).toStrictEqual(newName);
+        });
+    });
+
+    describe("updatePassword method", () => {
+        let props: UserProps;
+        beforeEach(() => {
+            props = userDataBuilder({});
+        });
+        it("Should throw an error when updating password of an user with invalid password field", () => {
+            const entity = new UserEntity(props);
+
+            expect(() => entity.updatePassword(null)).toThrow(EntityValidationError);
+            expect(() => entity.updatePassword(1 as any)).toThrow(EntityValidationError);
+            expect(() => entity.updatePassword("s".repeat(101))).toThrow(
+                EntityValidationError,
+            );
+            expect(() => entity.updatePassword("")).toThrow(EntityValidationError);
+        });
+        it("Should success change user entity password with updatePassword function", () => {
+            const entity = new UserEntity(props);
+            const newPassword = "other_password";
+            entity.updatePassword(newPassword);
+            expect(entity.password).toStrictEqual(newPassword);
+        });
+    });
 });
