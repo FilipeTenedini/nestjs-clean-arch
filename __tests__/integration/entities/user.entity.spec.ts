@@ -18,6 +18,23 @@ describe("UserEntity integration tests", () => {
             expect(() => new UserEntity({ ...props, name: "s".repeat(256) })).toThrow(
                 EntityValidationError,
             );
+            expect(() => new UserEntity({ ...props, name: 256 as any })).toThrow(
+                EntityValidationError,
+            );
+        });
+        it("Should throw an error when creating user with invalid email", () => {
+            expect(() => new UserEntity({ ...props, email: null })).toThrow(
+                EntityValidationError,
+            );
+            expect(() => new UserEntity({ ...props, email: "" })).toThrow(
+                EntityValidationError,
+            );
+            expect(() => new UserEntity({ ...props, email: "s".repeat(256) })).toThrow(
+                EntityValidationError,
+            );
+            expect(() => new UserEntity({ ...props, email: 256 as any })).toThrow(
+                EntityValidationError,
+            );
         });
     });
 });
