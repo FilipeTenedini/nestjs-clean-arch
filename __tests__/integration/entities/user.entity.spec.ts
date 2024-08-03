@@ -50,5 +50,13 @@ describe("UserEntity integration tests", () => {
                 EntityValidationError,
             );
         });
+        it("Should throw an error when creating user with invalid createdAt", () => {
+            expect(() => new UserEntity({ ...props, createdAt: 2023 as any })).toThrow(
+                EntityValidationError,
+            );
+            expect(() => new UserEntity({ ...props, createdAt: "2023" as any })).toThrow(
+                EntityValidationError,
+            );
+        });
     });
 });
