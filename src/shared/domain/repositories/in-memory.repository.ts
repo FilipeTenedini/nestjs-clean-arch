@@ -1,7 +1,9 @@
 import { BaseEntity } from "../entities/base-entity";
-import { RepositoryContract } from "./repository-contract.repository";
+import { RepositoryContract, SearchProps } from "./repository-contract.repository";
 
-export class InMemoryRepository<P, E extends BaseEntity<P>> implements RepositoryContract<E> {
+export class InMemoryRepository<P, E extends BaseEntity<P>>
+    implements RepositoryContract<P, E>
+{
     data: E[] = [];
 
     public async insert(entity: E): Promise<void> {
@@ -23,7 +25,37 @@ export class InMemoryRepository<P, E extends BaseEntity<P>> implements Repositor
         return this.data.find((entity) => entity.id === id);
     }
 
-    public async findAll(): Promise<E[]> {
-        return this.data;
+    public async findAll({
+        filter,
+        limit = 15,
+        page,
+        sort,
+        sortOrder,
+    }: SearchProps<P>): Promise<E[]> {
+        let result = this.data.filter((entity) => {
+            return Object.keys(filter).every((key) => {
+                if (filter[key] !== undefined) {
+                    return entity[key] === filter[key];
+                }
+                return true;
+            });
+        });
+
+        if (sort) {
+            result.sort((a, b) => {
+                if (sortOrder === "asc") {
+                    return a[sort!] > b[sort!] ? 1 : -1;
+                } else {
+                    return a[sort!] < b[sort!] ? 1 : -1;
+                }
+            });
+        }
+
+        if (page && limit) {
+            const start = (page - 1) * limit;
+            result = result.slice(start, start + limit);
+        }
+
+        return result;
     }
 }
