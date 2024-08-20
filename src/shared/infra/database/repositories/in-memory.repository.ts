@@ -1,5 +1,8 @@
-import { BaseEntity } from "../entities/base-entity";
-import { RepositoryContract, SearchProps } from "./repository-contract.repository";
+import { BaseEntity } from "@/shared/domain/entities/base-entity";
+import {
+    RepositoryContract,
+    SearchProps,
+} from "@/shared/domain/repositories/repository-contract.repository";
 
 export class InMemoryRepository<P, E extends BaseEntity<P>>
     implements RepositoryContract<P, E>

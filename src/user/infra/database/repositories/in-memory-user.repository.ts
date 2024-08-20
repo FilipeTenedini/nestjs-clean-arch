@@ -1,6 +1,6 @@
 import { UserEntity, UserProps } from "@/user/domain/entities/user.entity";
 import { UserRepository } from "./user.repository";
-import { InMemoryRepository } from "@/shared/domain/repositories/in-memory.repository";
+import { InMemoryRepository } from "@/shared/infra/database/repositories/in-memory.repository";
 
 export class InMemoryUserRepository
     extends InMemoryRepository<UserProps, UserEntity>
