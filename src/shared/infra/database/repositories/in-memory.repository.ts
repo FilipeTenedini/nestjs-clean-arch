@@ -9,8 +9,9 @@ export class InMemoryRepository<P, E extends BaseEntity<P>>
 {
     data: E[] = [];
 
-    public async insert(entity: E): Promise<void> {
+    public async insert(entity: E): Promise<E> {
         this.data.push(entity);
+        return entity;
     }
 
     public async update(entity: E): Promise<E> {

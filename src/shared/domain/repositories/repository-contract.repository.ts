@@ -7,7 +7,7 @@ export type SearchProps<F> = {
 };
 
 export abstract class RepositoryContract<P, E> {
-    public abstract insert(entity: E): Promise<void>;
+    public abstract insert(entity: E): Promise<E>;
     public abstract update(entity: E): Promise<E>;
     public abstract delete(id: string): Promise<void>;
     public abstract findById(id: string): Promise<E | null>;
