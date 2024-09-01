@@ -3,8 +3,8 @@ import { HashProvider } from "@/shared/infra/providers/hash-provider";
 import { SignUpUseCase } from "@/user/application/usecases/signup.usecase";
 import { InMemoryUserRepository } from "@/user/infra/database/repositories/in-memory-user.repository";
 import { userDataBuilder } from "../../../tests/helpers/user-data-builder";
-import { ConflictError } from "@/shared/errors/conflict-error";
-import { BadRequestError } from "@/user/application/errors/bad-request-error";
+import { BadRequestError } from "@/shared/application/errors/bad-request-error";
+import { ConflictError } from "@/shared/application/errors/conflict-error";
 
 describe("SignUpUseCase unit tests", () => {
     let sut: SignUpUseCase;
