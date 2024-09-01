@@ -3,8 +3,9 @@ import { BadRequestError } from "../errors/bad-request-error";
 import { ConflictError } from "@/shared/errors/conflict-error";
 import { UserEntity, UserProps } from "@/user/domain/entities/user.entity";
 import { HashProvider } from "@/shared/infra/providers/hash-provider";
+import { UseCaseContract } from "@/shared/application/usecases/use-case-contract";
 
-export class SignUpUseCase {
+export class SignUpUseCase implements UseCaseContract<UserProps, UserEntity> {
     constructor(
         private userRepository: UserRepository,
         private hashProvider: HashProvider,
