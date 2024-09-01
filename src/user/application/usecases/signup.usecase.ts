@@ -2,9 +2,13 @@ import { UserRepository } from "@/user/infra/database/repositories/user.reposito
 import { BadRequestError } from "../errors/bad-request-error";
 import { ConflictError } from "@/shared/errors/conflict-error";
 import { UserEntity, UserProps } from "@/user/domain/entities/user.entity";
+import { HashProvider } from "@/shared/infra/providers/hash-provider";
 
 export class SignUpUseCase {
-    constructor(private userRepository: UserRepository) {}
+    constructor(
+        private userRepository: UserRepository,
+        private hashProvider: HashProvider,
+    ) {}
 
     async execute(input: UserProps): Promise<UserEntity> {
         const { name, email, password } = input;
@@ -18,7 +22,9 @@ export class SignUpUseCase {
             throw new ConflictError("User already exists");
         }
 
-        const entity = new UserEntity(input);
+        const hashedPassword = await this.hashProvider.generateHash(password);
+
+        const entity = new UserEntity(Object.assign(input, { password: hashedPassword }));
 
         return this.userRepository.insert(entity);
     }
