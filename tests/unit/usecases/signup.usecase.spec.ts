@@ -2,14 +2,13 @@ import { HashProviderContract } from "@/shared/application/providers/hash-provid
 import { HashProvider } from "@/shared/infra/providers/hash-provider";
 import { SignUpUseCase } from "@/user/application/usecases/signup.usecase";
 import { InMemoryUserRepository } from "@/user/infra/database/repositories/in-memory-user.repository";
-import { UserRepository } from "@/user/infra/database/repositories/user.repository";
 import { userDataBuilder } from "../../../tests/helpers/user-data-builder";
 import { ConflictError } from "@/shared/errors/conflict-error";
 import { BadRequestError } from "@/user/application/errors/bad-request-error";
 
 describe("SignUpUseCase unit tests", () => {
     let sut: SignUpUseCase;
-    let repository: UserRepository;
+    let repository: InMemoryUserRepository;
     let hashProvider: HashProviderContract;
 
     beforeEach(() => {
