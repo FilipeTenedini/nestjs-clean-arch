@@ -1,7 +1,7 @@
 import { UserRepository } from "@/user/infra/database/repositories/user.repository";
 import { UserProps } from "@/user/domain/entities/user.entity";
-import { NotFoundError } from "@/shared/errors/not-found-error";
 import { UseCaseContract } from "@/shared/application/usecases/use-case-contract";
+import { NotFoundError } from "rxjs";
 
 export class GetUserUseCase implements UseCaseContract<string, UserProps> {
     constructor(private userRepository: UserRepository) {}

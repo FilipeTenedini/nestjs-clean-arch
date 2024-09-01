@@ -1,9 +1,9 @@
 import { InMemoryUserRepository } from "@/user/infra/database/repositories/in-memory-user.repository";
 import { GetUserUseCase } from "@/user/application/usecases/get-user.usecase";
 import { faker } from "@faker-js/faker";
-import { NotFoundError } from "@/shared/errors/not-found-error";
 import { UserEntity } from "@/user/domain/entities/user.entity";
 import { userDataBuilder } from "../../../tests/helpers/user-data-builder";
+import { NotFoundError } from "@/shared/application/errors/not-found-error";
 
 describe("GetUserUseCase unit tests", () => {
     let sut: GetUserUseCase;
